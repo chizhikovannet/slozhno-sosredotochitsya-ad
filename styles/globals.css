@@ -10,7 +10,7 @@ body {
   min-inline-size: 375px;
   max-inline-size: 1440px;
   margin: 0 auto;
-  /* Эти свойства будут заданы в style.css, так как они зависят от темы */
+  padding: 0;  /* Добавьте эту строку */
   font-family: var(--font-family, 'IBM Plex Mono', monospace);
   font-size: var(--font-size, 18px);
   line-height: var(--line-height, 1.3);
