@@ -1,5 +1,337 @@
 /* Основные стили проекта. Это стили для темы, которую вы верстаете первой. */
 
 .page {
-  /* сохраните в разметке и стилях класс page у тега body. Он удобен, чтобы составлять селекторы для разных цветовых тем. */
+  /* Фон */
+  background-image: var(--bg-image, url('../images/cover-image-dark.png'));
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  /* Фиксируем фон */
+  background-attachment: fixed;
+  min-height: 100vh;
+  /* Внутренние отступы по бокам, чтобы контент не прилипал к краям */
+  padding: var(--gap);
+  /* Используем грид для всей страницы, чтобы прижать footer */
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  gap: var(--section-gap);
+}
+
+/* ШАПКА (HEADER) */
+.header {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  align-items: start;
+  min-height: 100vh; /* Высота = высоте экрана */
+  position: relative; /* Для позиционирования уголков и REC */
+}
+
+/* Декоративные уголки (общий класс) */
+.decorated-zone::before,
+.decorated-zone::after {
+  content: '';
+  position: absolute;
+  inline-size: 25px;
+  block-size: 25px;
+  border-color: var(--corner-color, #FF0070);
+  border-style: solid;
+  border-width: 1px;
+}
+
+/* Верхний правый угол */
+.decorated-zone::before {
+  inset-inline-end: 0;
+  inset-block-start: 0;
+  border-left: none;
+  border-bottom: none;
+}
+
+/* Нижний левый угол */
+.decorated-zone::after {
+  inset-inline-start: 0;
+  inset-block-end: 0;
+  border-right: none;
+  border-top: none;
+}
+
+/* Декоративный элемент REC */
+.header__decoration-rec {
+  position: absolute;
+  inset-inline-end: 29px; /* Отступ справа с учетом толщины линии угла (25+4) */
+  inset-block-start: 0;
+  color: var(--rec-decor-color, #FF0070);
+  font-size: 18px;
+  line-height: 25px; /* Чтобы совпадало с высотой уголка */
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Точка у REC */
+.header__decoration-rec::after {
+  content: '';
+  display: inline-block;
+  inline-size: 9px;
+  block-size: 9px;
+  border-radius: 50%;
+  background-color: var(--rec-decor-color, #FF0070);
+  box-shadow: 0 0 4px 2px var(--rec-decor-color, #FF0070);
+}
+
+/* Меню переключения тем */
+.header__theme-menu {
+  justify-self: end; /* Прижимаем меню вправо */
+  margin-block-start: var(--gap);
+}
+
+.header__theme-menu-list {
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+}
+
+.header__theme-menu-button {
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--menu-button-color, #FF0070);
+  padding: 1.5px 13px;
+  text-transform: lowercase;
+  cursor: pointer;
+}
+
+.header__theme-menu-button:hover {
+  border-color: var(--menu-button-hover-border, rgba(255, 0, 112, 0.4));
+}
+
+.header__theme-menu-button:focus {
+  outline: none;
+}
+
+.header__theme-menu-button:focus-visible {
+  border-bottom-color: var(--menu-button-focus-outline, #FF0070);
+}
+
+.header__theme-menu-button_active {
+  border-color: var(--menu-button-color, #FF0070);
+  pointer-events: none;
+}
+
+/* Заголовок H1 */
+.header__title {
+  color: var(--title-color, #DB00FF);
+  font-size: clamp(7.25rem, 7.0115rem + 1.0178vw, 7.5rem); /* для мобильных */
+  line-height: 0.825; /* Межстрочный интервал меньше, так как шрифт большой */
+  text-shadow: 4px 4px 0 var(--title-shadow, #FF0070);
+}
+
+/* Текстовый блок в шапке */
+.header__text-block {
+  justify-self: end;
+  max-inline-size: 364px; /* Ширина для планшета */
+  margin-block-end: var(--gap);
+}
+
+/* ОСНОВНОЙ КОНТЕНТ (MAIN) */
+.main {
+  display: flex;
+  flex-direction: column;
+  gap: var(--section-gap);
+}
+
+/* Общие стили для всех секций */
+.section {
+  display: grid;
+  gap: var(--gap);
+}
+
+/* Заголовок секции (например, "Почему сосредоточиться так сложно") */
+.section__title {
+  color: var(--section-title-color, #FF0070);
+  font-size: inherit;
+  font-weight: 700;
+}
+
+/* Контент внутри секции (сетка из карточек) */
+.section__content {
+  display: grid;
+  gap: var(--gap);
+}
+
+/* Карточка */
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.card__title {
+  font-size: inherit;
+}
+
+.card__text {
+  font-weight: 400;
+}
+
+/* Стили для ссылок */
+.card__text a {
+  text-decoration: none;
+  text-shadow: 2px 2px 0 var(--link-shadow, #FF0070);
+}
+
+.card__text a:hover {
+  border-bottom: 1px solid currentColor;
+}
+
+.card__text a:focus {
+  outline: none;
+}
+
+.card__text a:focus-visible {
+  outline: 1px solid var(--link-focus-outline, #F1B2CE);
+}
+
+/* ГАЛЕРЕЯ */
+.gallery {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap);
+}
+
+.gallery__title {
+  font-size: inherit;
+}
+
+.gallery__grid {
+  display: grid;
+  gap: var(--gap);
+}
+
+.gallery__image {
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* ФУТЕР */
+.footer {
+  display: grid;
+  place-items: center; /* Центрируем по вертикали и горизонтали */
+  min-height: 100vh;
+  position: relative;
+}
+
+.footer__title {
+  color: var(--title-color, #DB00FF);
+  font-size: clamp(7.25rem, 7.0115rem + 1.0178vw, 7.5rem);
+  line-height: 0.825;
+  text-shadow: 2px 2px 0 var(--title-shadow, #FF0070);
+}
+
+/* ========== ПЛАНШЕТ (от 768px) ========== */
+@media (width >= 768px) {
+  :root {
+    --section-gap: 80px; /* Возвращаем отступ для планшета */
+  }
+
+  .header__title {
+    font-size: clamp(7.5rem, 0.5625rem + 14.4531vw, 9.8125rem);
+    margin-inline-start: -20px; /* Компенсируем отступы */
+  }
+
+  .header__text-block {
+    max-inline-size: 364px;
+  }
+
+  /* Меню в шапке для планшета (снова вертикальное) */
+  .header__theme-menu-list {
+    flex-direction: column;
+  }
+
+  /* Секция "Почему" - делаем две колонки */
+  .section--why {
+    grid-template-columns: 1fr 2fr;
+  }
+
+  /* Секция "Что снижает" - заголовок на всю ширину, контент в 2 колонки */
+  .section--what {
+    grid-template-columns: 1fr 2fr;
+  }
+
+  .section--what .section__content {
+    grid-column: 1 / -1; /* Растягиваем контент на всю ширину */
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* Секция "Как" - заголовок на всю ширину, контент в 2 колонки */
+  .section--how {
+    grid-template-columns: 1fr 2fr;
+  }
+
+  .section--how .section__content {
+    grid-column: 1 / -1;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* Галерея на планшете */
+  .gallery__grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .gallery__image:first-child {
+    grid-column: span 2;
+  }
+
+  .gallery__image:nth-child(2) {
+    grid-column: 3;
+    grid-row: span 2;
+  }
+
+  .gallery__image:nth-child(3) {
+    grid-column: 1;
+    grid-row: 2;
+  }
+
+  .gallery__image:nth-child(4) {
+    grid-column: 2;
+    grid-row: 2;
+  }
+
+  .gallery__image:nth-child(5) {
+    grid-column: span 2;
+    grid-row: 3;
+  }
+
+  .footer__title {
+    font-size: clamp(7.5rem, 0.5625rem + 14.4531vw, 9.8125rem);
+  }
+}
+
+/* ========== ДЕСКТОП (от 1024px) ========== */
+@media (width >= 1024px) {
+  /* Меню в шапке для десктопа — горизонтальное */
+  .header__theme-menu {
+    justify-self: center; /* Центрируем меню */
+    align-self: start; /* Прижимаем к верху */
+    margin-block-start: 0;
+  }
+
+  .header__theme-menu-list {
+    flex-direction: row;
+  }
+
+  .header__text-block {
+    max-inline-size: 491px; /* Ширина для десктопа */
+  }
+
+  /* Секция "Что снижает" — контент теперь в 3 колонки */
+  .section--what .section__content {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  /* Секция "Как" — контент теперь в 3 колонки */
+  .section--how .section__content {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }

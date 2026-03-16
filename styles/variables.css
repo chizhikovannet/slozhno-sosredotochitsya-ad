@@ -2,3 +2,38 @@
   Переменные для вашего проекта
   и их переопределение под различные устройства
 */
+
+:root {
+  /* Цвета (основная — тёмная тема) */
+  --accent-color: #FF0070;
+  --bg-color: #000028;
+  --text-color: #F1B2CE;
+  --title-color: #DB00FF;
+  --title-shadow: #FF0070;
+  --title-decor-text: #000028;
+  --section-title-color: #FF0070;
+  --menu-button-color: #FF0070;
+  --menu-button-hover-border: rgba(255, 0, 112, 0.4);
+  --menu-button-focus-outline: #FF0070;
+  --link-shadow: #FF0070;
+  --link-focus-outline: #F1B2CE;
+  --corner-color: #FF0070;
+  --rec-decor-color: #FF0070;
+
+  /* Шрифты */
+  --font-family: 'IBM Plex Mono', monospace;
+  --font-size: 18px;
+  --line-height: 1.3;
+
+  /* Отступы */
+  --gap: 20px; /* Базовый отступ для десктопа */
+  --section-gap: 80px; /* Отступ между секциями */
+}
+
+/* Адаптивные переменные для мобильных */
+@media (width < 768px) {
+  :root {
+    --gap: 10px;
+    --section-gap: 50px;
+  }
+}
