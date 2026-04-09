@@ -1,370 +1,498 @@
 /* Основные стили проекта. Это стили для темы, которую вы верстаете первой. */
 
 .page {
-  /* Фон */
-  background-image: var(--bg-image, url('../images/cover-image-dark.png'));
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
-  /* Фиксируем фон */
+  /* сохраните в разметке и стилях класс page у тега body. Он удобен, чтобы составлять селекторы для разных цветовых тем. */
+  font-family: var(--project-font-family);
+  font-weight: bold;
+  font-size: var(--regular-font-size);
+  line-height: 1.3;
+  background-color: var(--page-bg-color);
   background-attachment: fixed;
-  min-height: 100vh;
-  /* Внутренние отступы по бокам, чтобы контент не прилипал к краям */
-  padding: var(--gap);
-  /* Используем грид для всей страницы, чтобы прижать footer */
-  display: grid;
-  grid-template-rows: auto 1fr auto;
-  gap: var(--section-gap);
+  background-image: var(--background-image);
+  background-size: cover;
 }
 
-/* ШАПКА (HEADER) */
 .header {
+  /*height: max(100vh, var(--min-height));*/
+  height: 100vh;
+  min-height: 668px;
+  font: inherit;
   display: grid;
-  grid-template-rows: auto 1fr auto;
-  align-items: start;
-  min-height: 100vh;
-  position: relative;
-  box-sizing: border-box;
-}
-
-/* Декоративные уголки (общий класс) */
-.decorated-zone::before,
-.decorated-zone::after {
-  content: '';
-  position: absolute;
-  inline-size: 25px;
-  block-size: 25px;
-  border-color: var(--corner-color, #FF0070);
-  border-style: solid;
-  border-width: 1px;
-}
-
-/* Верхний правый угол */
-.decorated-zone::before {
-  inset-inline-end: 0;
-  inset-block-start: 0;
-  border-left: none;
-  border-bottom: none;
-}
-
-/* Нижний левый угол */
-.decorated-zone::after {
-  inset-inline-start: 0;
-  inset-block-end: 0;
-  border-right: none;
-  border-top: none;
-}
-
-/* Декоративный элемент REC */
-.header__decoration-rec {
-  position: absolute;
-  inset-inline-end: 29px;
-  inset-block-start: 0;
-  color: var(--rec-decor-color, #FF0070);
-  font-size: 18px;
-  line-height: 25px;
-  text-transform: uppercase;
-  display: flex;
+  grid-template-rows: 1fr min-content 1fr;
+  grid-template-columns: 1fr;
+  position: relative; /* это для уголочков */
   align-items: center;
+  padding: var(--decoration-gap) 0;
+}
+
+.header_text {
+  background-color: var(--header-text-bg-color);
+  color: var(--header-text-color);
+  font-weight: bold;
+  font-size: inherit;
+  margin: var(--decoration-gap);
+  font: inherit;
+}
+
+/* МЕНЮ */
+.header__theme-menu-list {
+  display: grid;
   gap: 10px;
 }
 
-/* Точка у REC */
-.header__decoration-rec::after {
-  content: '';
-  display: inline-block;
-  inline-size: 9px;
-  block-size: 9px;
-  border-radius: 50%;
-  background-color: var(--rec-decor-color, #FF0070);
-  box-shadow: 0 0 4px 2px var(--rec-decor-color, #FF0070);
-}
-
-/* Меню переключения тем */
-.header__theme-menu {
-  justify-self: end;
-  margin-block-start: var(--gap);
-}
-
-.header__theme-menu-list {
-  display: flex;
-  flex-direction: column;
-  gap: 13px;
-}
-
 .header__theme-menu-button {
-  background: transparent;
-  border: 1px solid transparent;
-  color: var(--menu-button-color, #FF0070);
-  padding: 1.5px 13px;
+  padding: 4px 13px;
+  background-color: inherit;
+  border: none;
+  font-size: var(--regular-font-size);
+  line-height: var(--regular-line-height);
   text-transform: lowercase;
+  color: var(--button-color);
   cursor: pointer;
 }
 
-.header__theme-menu-button:hover {
-  border-color: var(--menu-button-hover-border, rgba(255, 0, 112, 0.4));
+.header__theme-menu-button_active {
+  pointer-events: none;
+  border: 1px solid var(--button-color);
+}
+
+.header__theme-menu-button:focus-visible {
+  border: none;
+  outline: none;
+  border-bottom: 1px solid var(--button-color);
+}
+
+.header__theme-menu-button:hover:not(.header__theme-menu-button_active) {
+  border: 1px solid var(--border-color-opacity);
 }
 
 .header__theme-menu-button:focus {
   outline: none;
 }
 
-.header__theme-menu-button:focus-visible {
-  border-bottom-color: var(--menu-button-focus-outline, #FF0070);
-}
-
-.header__theme-menu-button_active {
-  border-color: var(--menu-button-color, #FF0070);
-  pointer-events: none;
-}
-
-/* Заголовок H1 */
-.header__title {
-  color: var(--title-color, #DB00FF);
-  font-size: clamp(7.25rem, 7.0115rem + 1.0178vw, 7.5rem);
-  line-height: 0.825;
-  text-shadow: 4px 4px 0 var(--title-shadow, #FF0070);
-}
-
-/* Текстовый блок в шапке */
-.header__text-block {
+/* МЕНЮ w1 w2 */
+.header__theme-menu {
   justify-self: end;
-  max-inline-size: 364px;
-  margin-block-end: var(--gap);
+  margin: auto var(--decoration-gap);
 }
 
-/* ОСНОВНОЙ КОНТЕНТ (MAIN) */
+
+/*уголочки*/
+
+.decorated-zone::before {
+  content: "";
+  position: absolute;
+  width: 25px;
+  height: 25px;
+  border-top: var(--corner-thickness) solid var(--deco-color);
+  border-right: var(--corner-thickness) solid var(--deco-color);
+  top: var(--decoration-gap);
+  right: var(--decoration-gap);
+}
+
+.decorated-zone::after {
+  content: "";
+  position: absolute;
+  width: 25px;
+  height: 25px;
+  border-bottom: var(--corner-thickness) solid var(--deco-color);
+  border-left: var(--corner-thickness) solid var(--deco-color);
+  left: var(--decoration-gap);
+  bottom: var(--decoration-gap);
+}
+
 .main {
-  display: flex;
-  flex-direction: column;
-  gap: var(--section-gap, 80px);
+  margin-left: var(--decoration-gap);
+  margin-right: var(--decoration-gap);
 }
 
-/* Общие стили для всех секций */
 .section {
   display: grid;
-  gap: var(--gap);
+  grid-template-columns: 1fr;
+  margin-top: 40px;
 }
 
-/* Заголовок секции */
-.section__title {
-  color: var(--section-title-color, #FF0070);
-  font-size: inherit;
-  font-weight: 700;
+.section_why: {
+  margin-top: var(--section-child-margin);
 }
 
-/* Контент внутри секции */
-.section__content {
-  display: grid;
-  gap: var(--gap);
+.section_what {
+  margin-top: 50px;
 }
 
-/* Карточка */
-.card {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+.section_how {
+  margin-top: 50px;
 }
 
-.card__title {
-  font-size: inherit;
+.advice_title_main {
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
-.card__text {
-  font-weight: 400;
+.gallery_section {
+  margin-top: 50px;
 }
 
-/* Стили для ссылок */
-.card__text a {
-  text-decoration: none;
-  text-shadow: 2px 2px 0 var(--link-shadow, #FF0070);
-}
-
-.card__text a:hover {
-  border-bottom: 1px solid currentColor;
-}
-
-.card__text a:focus {
-  outline: none;
-}
-
-.card__text a:focus-visible {
-  outline: 1px solid var(--link-focus-outline, #F1B2CE);
-}
-
-/* ГАЛЕРЕЯ */
+/* GALLERY вариант mobile */
 .gallery {
-  display: flex;
-  flex-direction: column;
-  gap: var(--gap);
-}
-
-.gallery__title {
-  font-size: inherit;
-}
-
-.gallery__grid {
   display: grid;
-  gap: var(--gap);
+  grid-template-columns: 1fr;
+  gap: 0px;
 }
 
 .gallery__image {
-  inline-size: 100%;
-  block-size: 100%;
+  height: 100%;
+  width: 100%;
   object-fit: cover;
-  object-position: center;
+  display: block;
 }
 
-/* ФУТЕР */
+.gallery__item {
+  margin: 0 0 10px 0;
+  padding: 0;
+  list-style-type: none;
+}
+
 .footer {
-  display: grid;
-  place-items: center;
-  min-height: 100vh;
+  height: max(100vh, var(--min-height));
   position: relative;
-  box-sizing: border-box;
 }
 
-.footer__title {
-  color: var(--title-color, #DB00FF);
+
+/* шрифты */
+
+.question {
+  font-size: var(--regular-font-size);
+  line-height: 1.3;
+  width: 100%;
+  color: var(--question-color);
+}
+
+
+.huge_title {
   font-size: clamp(7.25rem, 7.0115rem + 1.0178vw, 7.5rem);
   line-height: 0.825;
-  text-shadow: 2px 2px 0 var(--title-shadow, #FF0070);
+  text-shadow: 4px 4px 0 var(--accent-color);
+  color: var(--title-color);
+  margin-left: var(--header-margin-left);
 }
 
-/* ========== ПЛАНШЕТ (от 768px) ========== */
+.footer_title {
+ /* height: max(100vh, var(--min-height));*/
+  height: 100%;
+  display: flex;
+  align-items: center;
+  margin-top: 32px;
+}
+
+.answer_title {
+  color: var(--answer-title-color);
+  background-color: var(--answer-title-bg-color);
+  font-size: inherit;
+}
+
+.answer_text {
+  color: var(--answer-text-color);
+/*  background-color: var(--answer-text-bg-color);*/
+  font-weight: normal;
+}
+
+.answer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-top: 20px;
+}
+
+.advice_title {
+  font-size: var(--regular-font-size);
+  line-height: 1.3;
+  width: 100%;
+  font-weight: normal;
+  color: var(--advice-title-color);
+  background-color: var(--advice-title-bg-color);
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.simple_link {
+  text-shadow: 2px 1px 0 var(--accent-color);
+  text-decoration: none;
+}
+
+.simple_link:focus {
+  outline: none;
+}
+
+.simple_link:focus-visible {
+  outline: 1px solid currentColor;
+}
+
+.simple_link:hover {
+  border-bottom: 1px solid currentColor;
+  cursor: pointer;
+}
+
+.rec_empty {
+  display: flex;
+  justify-self: end;
+  color: var(--accent-color);
+  text-transform: uppercase;
+  line-height: 25px;
+  position: absolute;
+  width: 10px;
+  top: calc( var(--decoration-gap) - 10px) ;
+  right: calc( var(--decoration-gap) + 50px);
+}
+
+.rec_empty::before {
+  content: 'REC';
+  font-weight: normal;
+  display: none;
+  color: var(--rec-color);
+  margin-top: 10px;
+  margin-right: 15px;
+}
+
+.rec_empty::after {
+  content: '';
+  position: absolute;
+  display: none;
+  inline-size: 9px;
+  block-size: 9px;
+  border-radius: 50%;
+  background-color: var(--rec-color);
+  margin-left: 42px;
+  margin-top: 18px;
+  box-shadow: 0 0 4px 2px var(--accent-color);
+}
+
+
+.picture_question {
+  margin-bottom: 10px;
+}
+
+/* GALLERY вариант 2 и 3 */
 @media (width >= 768px) {
-  :root {
-    --section-gap: 80px;
+
+  .huge_title {
+    font-size: clamp(7.5rem, 0.563rem + 14.453vw, 15rem);
+/*    font-size: clamp(7.5rem, 0.563rem + 14.453vw, 9.813rem);*/
   }
 
-  .header__title {
-    font-size: clamp(7.5rem, 0.5625rem + 14.4531vw, 9.8125rem);
-    margin-inline-start: -20px;
+  .rec_empty {
+    --rec_empty_x_pos: 35px;
   }
 
-  .header__text-block {
-    max-inline-size: 364px;
-    margin-block-end: 20px;
+  .header {
+    margin-block-end: 40px;
+    --min-height: 1024px;
   }
 
-  .header__theme-menu-list {
-    flex-direction: column;
-  }
-
-  .section--why {
-    grid-template-columns: 1fr 2fr;
-  }
-
-  .section--what {
-    grid-template-columns: 1fr 2fr;
-  }
-
-  .section--what .section__content {
-    grid-column: 1 / -1;
-    grid-template-columns: repeat(2, 1fr);
+  .gallery {
+    grid-template-rows: auto;
+    grid-template-columns: repeat(3, 1fr);
+    margin-top: 20px;
     gap: 20px;
   }
 
-  .section--how {
+  .gallery__item {
+    margin: 0;
+  }
+
+
+  .footer {
+    --min-height: 1024px;
+  }
+
+/*  .gallery__item:nth-child(1) {*/
+  .sunset_pic {
+    grid-column: 1 / 3;
+  /*  grid-row: 2 / 3;*/
+  }
+
+  .ice-cream_pic {
+    grid-column: 3 / 4;
+    grid-row:  1 / 3;
+  }
+
+  .tape_pic {
+    grid-column: 1 / 2;
+    grid-row: 2 / 4;
+  }
+
+  .books_pic {
+    grid-column: 2 / 3;
+    grid-row: 2 / 3;
+  }
+
+  .street_pic {
+    grid-column: 2 / 4;
+    grid-row: 3 / 4;
+  }
+
+  .header_text {
+    width:  calc(50% - 20px);
+    justify-self: right;
+  }
+
+  .question_what {
+    margin-top: 30px;
+    width: 30%;
+  }
+
+  .question_how {
+    margin-top: 20px;
+  }
+
+  .section_why {
+    display: grid;
     grid-template-columns: 1fr 2fr;
-  }
-
-  .section--how .section__content {
-    grid-column: 1 / -1;
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .gallery__grid {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-areas:
+    'question_why answers_why';
     gap: 20px;
   }
 
-  .gallery__image:first-child {
-    grid-column: span 2;
-  }
-
-  .gallery__image:nth-child(2) {
-    grid-column: 3;
-    grid-row: span 2;
-  }
-
-  .gallery__image:nth-child(3) {
-    grid-column: 1;
-    grid-row: 2;
-  }
-
-  .gallery__image:nth-child(4) {
-    grid-column: 2;
-    grid-row: 2;
-  }
-
-  .gallery__image:nth-child(5) {
-    grid-column: span 2;
-    grid-row: 3;
-  }
-
-  .footer__title {
-    font-size: clamp(7.5rem, 0.5625rem + 14.4531vw, 9.8125rem);
-  }
-}
-
-/* ========== ДЕСКТОП (от 1024px) ========== */
-@media (width >= 1024px) {
-  .header__theme-menu {
-    justify-self: center;
-    align-self: start;
-    margin-block-start: 0;
-  }
-
-  .header__theme-menu-list {
-    flex-direction: row;
-    gap: 10px;
-  }
-
-  .header__text-block {
-    max-inline-size: 491px;
-    margin-inline-end: 0;
-  }
-
-  .section--what .section__content {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-  }
-
-  .section--how .section__content {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-/* ========== МОБИЛЬНОЕ (до 768px) ========== */
-@media (width < 768px) {
-  :root {
-    --gap: 10px;
-    --section-gap: 50px;
-  }
-
-  .header__title {
-    font-size: clamp(7.25rem, 7.0115rem + 1.0178vw, 7.5rem);
-    margin-inline-start: 0;
-    line-height: 0.825;
-  }
-
-  .header__text-block {
-    max-inline-size: 100%;
-    margin-block-end: var(--gap);
-  }
-
-  .card {
-    gap: 10px;
-  }
-
-  .gallery__grid {
+  .section_what {
+    display: grid;
     grid-template-columns: 1fr;
+    gap: 0px;
+  }
+
+  .section_how {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    grid-template-areas:
+    'question_how answers_how';
+    gap: 20px;
+    margin-top: 61px;
+  }
+
+  .gallery_section {
+    margin-top: 78px;
+  }
+
+  .picture_question {
+    grid-column: 1 / 4;
+    margin-bottom: 0;
+  }
+
+  .footer_title {
+    justify-content: center;
+    margin-top: 62px;
+  }
+}
+
+/*прям большой*/
+@media (width >= 1024px) {
+
+  .rec_empty {
+    --rec_empty_x_pos: 40px;
+  }
+
+  .header {
+   margin-block-end: 0;
+   --min-height: 768px;
+  }
+
+  .footer {
+    --min-height: 768px;
+    margin-top: 50px;
+  }
+
+  .huge_title {
+   /* font-size: 157px;*/
+   /* line-height: 0.825;*/
+    margin-left: 0;
+  }
+
+  .decorated-zone::after {
+    bottom: 20px;
+  }
+
+  .section_why {
+      margin-top: 40px;
+      gap: 10px;
+  }
+
+  .question_why {
+    margin-top: 20px;
+  }
+
+  .answers_why {
+    margin-top: 0px;
+  }
+
+  .section_what {
+    margin-top: 50px;
+  }
+
+  .header_text {
+    margin-top: 20px;
+  }
+
+  /* МЕНЮ  w3 */
+  .header__theme-menu {
+    height: 100%;
+    display: flex;
+    justify-self: center;
+    flex-direction: column;
+    align-self: start;
+  }
+
+  /* меню горизонтально */
+  .header__theme-menu-list {
+    grid-auto-flow: column;
+  }
+
+  .title {
+    grid-row: 2 / 3;
+    grid-column: 1 / 2;
+  }
+
+  .div_2 {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    grid-template-rows: auto;
+    grid-template-areas:
+      "question_what ."
+      "answers_what answers_what";
     gap: 10px;
   }
 
-  .gallery__image {
-    grid-column: 1 !important;
-    grid-row: auto !important;
+  .question_what {
+    display: block;
+    width: 30%;
+    grid-area: question_what;
   }
+
+  .answers_what {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+    grid-area: answers_what;
+    margin-top: 77px;
+  }
+
+  .section_how {
+    gap: 10px;
+  }
+
+  .gallery {
+/*    margin-top: 20px;
+    row-gap: 10px;
+    column-gap: 20px;*/
+  }
+
+  /*
+  .footer {
+    margin-top: 10px;
+  }*/
+
+  .footer_title {
+ /*   margin-top: 50px;*/
+  }
+
+
+
 }

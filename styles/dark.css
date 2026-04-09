@@ -1,31 +1,71 @@
+/*
+  Специально для тёмной темы при наличии класса,
+  здесь окажутся стили, которые нужно переопределить принудительно,
+  переключая тему
+*/
+
 :root.theme-dark {
-  /* Основные цвета */
-  --accent-color: #FF0070;           /* Акцентный (розовый) */
-  --bg-color: #000028;                /* Тёмно-синий фон */
-  --text-color: #F1B2CE;              /* Светло-розовый текст */
-  --title-color: #DB00FF;              /* Фиолетовый для заголовков */
-  --title-shadow: #FF0070;             /* Тень заголовков */
-  --title-decor-text: #000028;         /* Текст на цветном фоне */
-  --section-title-color: #FF0070;      /* Цвет заголовков секций */
-  
-  /* Элементы интерфейса */
-  --menu-button-color: #FF0070;         /* Цвет кнопок меню */
-  --menu-button-hover-border: rgba(255, 0, 112, 0.4);
-  --menu-button-focus-outline: #FF0070;
-  
-  /* Ссылки */
-  --link-shadow: #FF0070;
-  --link-focus-outline: #F1B2CE;
-  
-  /* Декоративные элементы */
-  --corner-color: #FF0070;              /* Цвет уголков */
-  --rec-decor-color: #FF0070;           /* Цвет REC и точки */
-  
-  /* Фоновое изображение */
-  --bg-image: url('../images/cover-image-dark.png');
+  /* сохраните этот селектор в приведённом виде.
+    Так стили написанные ниже будут иметь больший вес,
+    чем стили в медиазапросе предпочтений пользователя
+  */
+    --page-bg-color: var(--approximately-black);
+    --accent-color: var(--real-red);
+    --title-color:  #db00ff;
+    --header-text-bg-color: var(--real-red);
+    --header_text-color: var(--approximately-black);
+    --question-bg-color: var(--approximately-black);
+    --question-color: var(--real-red);
+    --answer-title-bg-color: var(--real-red);
+    --answer-title-color: var(--approximately-black);
+    --answer-text-bg-color: var(--approximately-black);
+    --answer-text-color: #f1b2ce;
+    --advice-title-bg-color: var(--real-red);
+    --advice-title-color: var(--approximately-black);
+    --button-color: var(--real-red);
+    --rec-color: var(--real-red);
+    --border-color-opacity: #FF007066;
+    --background-image:  url("../images/cover-image-dark.png");
+    --deco-color: var(--real-red);
+
 }
 
-/* Убедитесь, что REC виден */
-.theme-dark .header__decoration-rec {
-  display: flex;
+@media (prefers-color-scheme: dark) {
+  :root {
+    --page-bg-color: var(--approximately-black);
+    --accent-color: var(--real-red);
+    --title-color:  #db00ff;
+    --header-text-bg-color: var(--real-red);
+    --header-text-color: var(--approximately-black);
+    --question-bg-color: var(--approximately-black);
+    --question-color: var(--real-red);
+    --answer-title-bg-color: var(--real-red);
+    --answer-title-color: var(--approximately-black);
+    --answer-text-bg-color: var(--approximately-black);
+    --answer-text-color: #f1b2ce;
+    --advice-title-bg-color: var(--real-red);
+    --advice-title-color: var(--approximately-black);
+    --button-color: var(--real-red);
+    --rec-color: var(--real-red);
+    --border-color-opacity: #FF007066;
+    --border-color-opacity: #FF007066;
+    --background-image:  url("../images/cover-image-dark.png");
+    --deco-color: var(--real-red);
+  }
+
+  .rec_empty::before {
+    display: inline-block;
+  }
+  
+  .rec_empty::after {
+    display: inline-block;
+  }
+}
+
+.theme-dark .rec_empty::before {
+  display: inline-block;
+}
+
+.theme-dark .rec_empty::after {
+  display: inline-block;
 }
